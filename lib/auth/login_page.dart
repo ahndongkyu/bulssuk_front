@@ -32,8 +32,11 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text(
-          '로그인',
-          style: TextStyle(color: Colors.white),
+          '상단 노치 영역',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18, // 상단 제목 텍스트 크기
+          ),
         ),
         centerTitle: true,
         elevation: 0,
@@ -81,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.symmetric(vertical: 16.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(color: Color(0xFF67EACA), width: 2), // 테두리 색상 및 두께
+                  side: BorderSide(color: Color(0xFF67EACA), width: 1), // 테두리 색상 및 두께
                 ),
               ),
               child: Text(
