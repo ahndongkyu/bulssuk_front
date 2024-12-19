@@ -13,8 +13,8 @@ class _LoginPageState extends State<LoginPage> {
 
   void _login() {
     // 간단한 로그인 검증 로직
-    if (_emailController.text != "test@example.com" ||
-        _passwordController.text != "password") {
+    if (_emailController.text != "test" ||
+        _passwordController.text != "1234") {
       setState(() {
         _isLoginFailed = true; // 로그인 실패 상태로 설정
       });
