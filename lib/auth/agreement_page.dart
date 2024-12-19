@@ -55,7 +55,9 @@ class _AgreementPageState extends State<AgreementPage> {
                   _isAllAgreed
                       ? Icons.radio_button_checked
                       : Icons.radio_button_off,
-                  color: Colors.black,
+                    color: _isAllAgreed
+                        ? Colors.green // 체크되었을 때 색상
+                        : Colors.black, // 기본 색상
                 ),
                 onPressed: () {
                   setState(() {
@@ -78,7 +80,9 @@ class _AgreementPageState extends State<AgreementPage> {
                   _isTermsAgreed
                       ? Icons.radio_button_checked
                       : Icons.radio_button_off,
-                  color: Colors.black,
+                  color: _isTermsAgreed
+                      ? Colors.green // 체크되었을 때 색상
+                      : Colors.black, // 기본 색상
                 ),
                 onPressed: () {
                   setState(() {
@@ -118,7 +122,9 @@ class _AgreementPageState extends State<AgreementPage> {
                   _isPrivacyAgreed
                       ? Icons.radio_button_checked
                       : Icons.radio_button_off,
-                  color: Colors.black,
+                  color: _isPrivacyAgreed
+                      ? Colors.green // 체크되었을 때 색상
+                      : Colors.black, // 기본 색상
                 ),
                 onPressed: () {
                   setState(() {
