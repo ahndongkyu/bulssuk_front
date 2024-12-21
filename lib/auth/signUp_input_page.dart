@@ -1,6 +1,31 @@
 import 'package:flutter/material.dart';
 
-class SignUpInputPage extends StatelessWidget {
+class SignUpInputPage extends StatefulWidget {
+  @override
+  _SignUpInputPageState createState() => _SignUpInputPageState();
+}
+
+class _SignUpInputPageState extends State<SignUpInputPage> {
+  String? _selectedYear;
+  String? _selectedMonth;
+  String? _selectedDay;
+
+  final List<String> years = List.generate(2024 - 1950 + 1, (index) => '${1950 + index}');
+  final List<String> months = List.generate(12, (index) => '${index + 1}');
+  final List<String> days = List.generate(31, (index) => '${index + 1}');
+
+  String? _selectedEmailDomain;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _customDomainController = TextEditingController();
+
+  final List<String> emailDomains = ['직접 입력', 'naver.com', 'daum.net'];
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedEmailDomain = emailDomains.first; // 기본값 설정
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,28 +44,127 @@ class SignUpInputPage extends StatelessWidget {
             ),
             SizedBox(height: 16),
 
-            // 생년월일 입력
-            TextField(
-              decoration: InputDecoration(labelText: '출생연도 (YYYY-MM-DD)'),
-            ),
-            SizedBox(height: 16),
-
-            // 이메일 입력 (인증 버튼 포함)
+            // 생년월일 선택
             Row(
               children: [
                 Expanded(
+                  flex: 2,
+                  child: DropdownButtonFormField<String>(
+                    value: _selectedYear,
+                    items: years.map((year) {
+                      return DropdownMenuItem(
+                        value: year,
+                        child: Text(year),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedYear = value;
+                      });
+                    },
+                    decoration: InputDecoration(labelText: '출생 연도'),
+                    isDense: true,
+                    menuMaxHeight: 200, // 드롭다운 5개씩 표시
+                  ),
+                ),
+                SizedBox(width: 8),
+                Expanded(
+                  flex: 1,
+                  child: DropdownButtonFormField<String>(
+                    value: _selectedMonth,
+                    items: months.map((month) {
+                      return DropdownMenuItem(
+                        value: month,
+                        child: Text(month),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedMonth = value;
+                      });
+                    },
+                    decoration: InputDecoration(labelText: '월'),
+                    isDense: true,
+                    menuMaxHeight: 200, // 드롭다운 5개씩 표시
+                  ),
+                ),
+                SizedBox(width: 8),
+                Expanded(
+                  flex: 1,
+                  child: DropdownButtonFormField<String>(
+                    value: _selectedDay,
+                    items: days.map((day) {
+                      return DropdownMenuItem(
+                        value: day,
+                        child: Text(day),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedDay = value;
+                      });
+                    },
+                    decoration: InputDecoration(labelText: '일'),
+                    isDense: true,
+                    menuMaxHeight: 200, // 드롭다운 5개씩 표시
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+
+            // 이메일 입력
+            Row(
+              children: [
+                Expanded(
+                  flex: 2,
                   child: TextField(
-                    decoration: InputDecoration(labelText: '이메일'),
+                    controller: _emailController,
+                    decoration: InputDecoration(labelText: '이메일 입력'),
+                  ),
+                ),
+                Text('@'),
+                SizedBox(width: 8),
+                Expanded(
+                  flex: 2,
+                  child: _selectedEmailDomain == '직접 입력'
+                      ? TextField(
+                    controller: _customDomainController,
+                    decoration: InputDecoration(labelText: '도메인 입력'),
+                  )
+                      : DropdownButtonFormField<String>(
+                    value: _selectedEmailDomain,
+                    items: emailDomains.map((domain) {
+                      return DropdownMenuItem(
+                        value: domain,
+                        child: Text(domain),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedEmailDomain = value;
+                        if (value != '직접 입력') {
+                          _customDomainController.clear(); // 입력 초기화
+                        }
+                      });
+                    },
+                    decoration: InputDecoration(
+                      labelText: '도메인 선택',
+                    ),
                   ),
                 ),
                 SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () {
-                    // 이메일 인증 로직
+                    // 이메일 인증 버튼 로직
                     print('이메일 인증 버튼 클릭');
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFB0F4E6), // 버튼 색상
+                    minimumSize: Size(100, 48), // 버튼 크기 설정 (중복 확인과 동일)
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8), // radius 수정 가능
+                    ),
+                    backgroundColor: Color(0xFFB0F4E6),
                   ),
                   child: Text(
                     '인증',
@@ -51,7 +175,7 @@ class SignUpInputPage extends StatelessWidget {
             ),
             SizedBox(height: 16),
 
-            // 아이디 입력 (중복 확인 버튼 포함)
+            // 아이디 입력
             Row(
               children: [
                 Expanded(
@@ -62,11 +186,14 @@ class SignUpInputPage extends StatelessWidget {
                 SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () {
-                    // 아이디 중복 확인 로직
                     print('아이디 중복 확인 버튼 클릭');
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFB0F4E6), // 버튼 색상
+                    minimumSize: Size(100, 48),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    backgroundColor: Color(0xFFB0F4E6),
                   ),
                   child: Text(
                     '중복 확인',
@@ -98,17 +225,16 @@ class SignUpInputPage extends StatelessWidget {
                   Navigator.pushNamed(context, '/signup_complete');
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFB0F4E6), // 버튼 색상
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  minimumSize: Size(double.infinity, 48),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
-                    side: BorderSide(color: Color(0xFF67EACA), width: 1),
                   ),
+                  backgroundColor: Color(0xFFB0F4E6),
                 ),
                 child: Text(
                   '회원가입 완료',
                   style: TextStyle(
-                    color: Color(0xFF12D3CF), // 텍스트 색상
+                    color: Color(0xFF12D3CF),
                     fontSize: 18,
                   ),
                 ),
