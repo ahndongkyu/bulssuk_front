@@ -37,6 +37,12 @@ class _LoginPageState extends State<LoginPage> {
       await _storage.write(key: 'jwt_token', value: token);
       await _storage.write(key: 'user_id', value: userId);
 
+      // 저장된 데이터 출력
+      final savedUserId = await getUserId();
+      final savedToken = await getToken();
+      print('User ID retrieved: $savedUserId');
+      print('Token retrieved: $savedToken');
+
       // 로그인 성공 메시지
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("로그인 성공!")),
@@ -52,6 +58,14 @@ class _LoginPageState extends State<LoginPage> {
         SnackBar(content: Text("로그인 실패: ${jsonDecode(response.body)['message']}")),
       );
     }
+  }
+
+  Future<String?> getUserId() async {
+    return await _storage.read(key: 'user_id');
+  }
+
+  Future<String?> getToken() async {
+    return await _storage.read(key: 'jwt_token');
   }
 
   @override
