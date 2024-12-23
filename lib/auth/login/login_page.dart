@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../join/agreement_page.dart'; // 약관 동의 페이지 import
+import 'find_id_page.dart'; // 아이디 찾기 페이지 import
+import 'find_password_page.dart'; // 비밀번호 찾기 페이지 import
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,8 +15,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void _login() {
     // 간단한 로그인 검증 로직
-    if (_emailController.text != "test" ||
-        _passwordController.text != "1234") {
+    if (_emailController.text != "test" || _passwordController.text != "1234") {
       setState(() {
         _isLoginFailed = true; // 로그인 실패 상태로 설정
       });
@@ -76,7 +77,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 30),
             // 로그인 버튼
-            // 로그인 버튼
             ElevatedButton(
               onPressed: _login,
               style: ElevatedButton.styleFrom(
@@ -97,25 +97,47 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 20), // 버튼과 다음 요소 간 여백
 
-            // 하단 링크
+            // 하단 링크 (아이디 찾기 | 비밀번호 찾기 | 회원가입)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextButton(
-                  onPressed: () {
-                    print("아이디/비밀번호 찾기 클릭");
-                  },
-                  child: Text(
-                    '아이디 / 비밀번호 찾기',
-                    style: TextStyle(color: Colors.black),
-                  ),
+                // 아이디 찾기 및 비밀번호 찾기
+                Row(
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => FindIdPage()),
+                        );
+                      },
+                      child: Text(
+                        '아이디 찾기',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    Text('|', style: TextStyle(color: Colors.grey)), // 구분선
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FindPasswordPage()),
+                        );
+                      },
+                      child: Text(
+                        '비밀번호 찾기',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
                 ),
+                // 회원가입
                 TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => AgreementPage()), // 약관 동의 페이지로 이동
+                      MaterialPageRoute(builder: (context) => AgreementPage()),
                     );
                   },
                   child: Text(
