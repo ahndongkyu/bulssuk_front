@@ -1,7 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../auth/login/login_page.dart'; // 로그인 페이지 import
+import '../widgets/bottom_nav.dart'; // 하단 네비게이션 import
 
 class Dashboard extends StatelessWidget {
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
+
   const Dashboard({super.key});
+
+  Future<void> logout(BuildContext context) async {
+    // 모든 저장 데이터 삭제
+    await _storage.deleteAll();
+    print('Logged out and storage cleared.');
+
+    // 로그아웃 성공 메시지
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("로그아웃 성공!")),
+    );
+
+    // 로그인 페이지로 이동
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+          (route) => false, // 이전 스택을 모두 제거
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +88,6 @@ class Dashboard extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             // 메뉴 리스트
-            // 메뉴 리스트
             ListView(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -73,13 +95,13 @@ class Dashboard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0), // 왼쪽 여백 추가
                   child: _buildMenuItem(context, '오늘의 퀴즈', () {
-                    // FAQ 클릭 동작 추가
+                    // 오늘의 퀴즈 클릭 동작 추가
                   }),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0), // 왼쪽 여백 추가
                   child: _buildMenuItem(context, '나의 나무 키우기', () {
-                    // 퀴즈 클릭 동작 추가
+                    // 나의 나무 키우기 클릭 동작 추가
                   }),
                 ),
                 Padding(
@@ -91,13 +113,14 @@ class Dashboard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0), // 왼쪽 여백 추가
                   child: _buildMenuItem(context, '1:1문의 (FAQ)', () {
-                    // 나의 나무 키우기 클릭 동작 추가
+                    // FAQ 클릭 동작 추가
                   }),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0), // 왼쪽 여백 추가
                   child: _buildMenuItem(context, '로그아웃', () {
-                    // 로그아웃 클릭 동작 추가
+                    // 로그아웃 클릭 시 동작
+                    logout(context);
                   }),
                 ),
               ],
@@ -105,6 +128,7 @@ class Dashboard extends StatelessWidget {
           ],
         ),
       ),
+
     );
   }
 
