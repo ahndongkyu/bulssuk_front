@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'agreement_page.dart'; // 약관 동의 페이지 import
+import '../join/agreement_page.dart'; // 약관 동의 페이지 import
 
 class LoginPage extends StatefulWidget {
   @override

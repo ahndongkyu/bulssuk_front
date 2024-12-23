@@ -144,20 +144,22 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                       setState(() {
                         _selectedEmailDomain = value;
                         if (value != '직접 입력') {
-                          _customDomainController.clear(); // 입력 초기화
+                          _customDomainController.clear(); // 직접 입력 초기화
                         }
                       });
                     },
-                    decoration: InputDecoration(
-                      labelText: '도메인 선택',
-                    ),
+                    decoration: InputDecoration(labelText: '도메인 선택'),
                   ),
                 ),
                 SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () {
-                    // 이메일 인증 버튼 로직
-                    print('이메일 인증 버튼 클릭');
+                    final email = _emailController.text;
+                    final domain = _selectedEmailDomain == '직접 입력'
+                        ? _customDomainController.text
+                        : _selectedEmailDomain;
+
+                    print('인증 요청: $email@$domain');
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(100, 48), // 버튼 크기 설정 (중복 확인과 동일)
@@ -222,6 +224,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
+                  // 회원가입 완료 페이지로 이동
                   Navigator.pushNamed(context, '/signup_complete');
                 },
                 style: ElevatedButton.styleFrom(
