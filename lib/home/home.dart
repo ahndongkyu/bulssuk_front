@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'reupcycling_page.dart';
-// import 'recyclingMenu_page.dart';
 import '../widgets/top_nav.dart'; // 상단 네비게이션 가져오기
 import '../widgets/bottom_nav.dart'; // 하단 네비게이션 가져오기
 
@@ -10,12 +8,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TopNavigationSection(), // 상단 네비게이션
+      appBar: const TopNavigationSection(title: '홈'), // 상단 네비게이션
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 1. event 영역
+            // 1. 이벤트 영역
             Container(
               color: const Color(0xFFB0F4E6),
               padding: const EdgeInsets.all(16.0),
@@ -46,7 +44,10 @@ class HomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          // "오늘의 퀴즈" 버튼 클릭 시 동작 추가
+                          print("오늘의 퀴즈 버튼 클릭");
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFFCF9EC),
                           foregroundColor: Colors.black,
@@ -58,7 +59,10 @@ class HomePage extends StatelessWidget {
                         child: const Text('오늘의 퀴즈'),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          // "출첵하기" 버튼 클릭 시 동작 추가
+                          print("출첵하기 버튼 클릭");
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFFCF9EC),
                           foregroundColor: Colors.black,
@@ -75,11 +79,18 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            // 추가적인 UI 요소들 (뉴스, 가이드 등) 기존 코드에서 가져오기
+            // 추가 UI 요소
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              child: const Text(
+                '홈 화면 콘텐츠 영역',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+              ),
+            ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationSection(), // 하단 네비게이션 바
+      bottomNavigationBar: const BottomNavigationSection(currentIndex: 0), // 하단 네비게이션 바
     );
   }
 }

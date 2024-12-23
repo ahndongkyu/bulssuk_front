@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
 class TopNavigationSection extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+
+  const TopNavigationSection({Key? key, required this.title}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
-        '상단 노치 영역', // 제목 텍스트
-        style: TextStyle(
+        title, // 제목 텍스트
+        style: const TextStyle(
           color: Colors.white, // 텍스트 색상
           fontSize: 18, // 텍스트 크기
         ),
@@ -18,5 +22,5 @@ class TopNavigationSection extends StatelessWidget implements PreferredSizeWidge
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(40.0); // AppBar 높이 설정
+  Size get preferredSize => const Size.fromHeight(40.0); // AppBar 높이 설정
 }

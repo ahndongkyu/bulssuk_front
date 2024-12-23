@@ -1,33 +1,46 @@
 import 'package:flutter/material.dart';
 import '../home/home.dart';
+import '../myTree/tree_page.dart';
+import '../myPage/dashboard.dart';
 
 class BottomNavigationSection extends StatefulWidget {
+  final int currentIndex; // 현재 선택된 인덱스
+
+  const BottomNavigationSection({Key? key, required this.currentIndex})
+      : super(key: key);
+
   @override
   _BottomNavigationSectionState createState() =>
       _BottomNavigationSectionState();
 }
 
 class _BottomNavigationSectionState extends State<BottomNavigationSection> {
-  int _currentIndex = 0;
-
   void _onItemTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
+    if (index == widget.currentIndex) return; // 같은 메뉴를 클릭하면 아무 동작도 하지 않음
 
-    // 각 탭에 따라 네비게이션
+    // 인덱스에 따라 페이지 네비게이션
     switch (index) {
       case 0:
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomePage()),
+          MaterialPageRoute(builder: (context) => const HomePage()),
+        );
+        break;
+      case 1:
+        print('달력 페이지로 이동');
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const TreePage()),
         );
         break;
       case 3:
-        Navigator.pushNamed(context, '/dashboard'); // DashboardPage로 이동
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Dashboard()),
+        );
         break;
-      default:
-        print('다른 화면으로 이동');
     }
   }
 
@@ -35,7 +48,7 @@ class _BottomNavigationSectionState extends State<BottomNavigationSection> {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      currentIndex: _currentIndex,
+      currentIndex: widget.currentIndex, // 현재 선택된 인덱스
       onTap: _onItemTapped,
       items: const [
         BottomNavigationBarItem(
