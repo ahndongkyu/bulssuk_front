@@ -8,19 +8,17 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // 로그인 상태 (테스트용: false로 설정)
-  final bool isLoggedIn = false;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'My App',
-      initialRoute: '/',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      initialRoute: '/login', // 앱 시작 화면을 로그인 페이지로 설정
       routes: {
-        '/': (context) => HomePage(), // 홈 화면
-        '/mypage': (context) =>
-        isLoggedIn ? Dashboard() : LoginPage(), // 로그인 상태에 따라 다른 화면
+        '/login': (context) => LoginPage(), // 로그인 화면 경로
+        '/home': (context) => HomePage(),   // 홈 화면 경로
       },
     );
   }
