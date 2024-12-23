@@ -17,6 +17,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
   String? _selectedEmailDomain;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _customDomainController = TextEditingController();
+  final TextEditingController _authCodeController = TextEditingController(); // 인증번호 입력 컨트롤러
 
   final List<String> emailDomains = ['직접 입력', 'naver.com', 'daum.net'];
 
@@ -24,6 +25,48 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
   void initState() {
     super.initState();
     _selectedEmailDomain = emailDomains.first; // 기본값 설정
+  }
+
+  void _showAuthCodeDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('인증번호 입력'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('인증번호를 입력해주세요.'),
+              SizedBox(height: 10),
+              TextField(
+                controller: _authCodeController,
+                decoration: InputDecoration(
+                  labelText: '인증번호',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.number,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // 다이얼로그 닫기
+              },
+              child: Text('취소'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                final authCode = _authCodeController.text;
+                print('입력된 인증번호: $authCode');
+                Navigator.of(context).pop(); // 다이얼로그 닫기
+              },
+              child: Text('확인'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -154,12 +197,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                 SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () {
-                    final email = _emailController.text;
-                    final domain = _selectedEmailDomain == '직접 입력'
-                        ? _customDomainController.text
-                        : _selectedEmailDomain;
-
-                    print('인증 요청: $email@$domain');
+                    _showAuthCodeDialog(); // 인증번호 입력창 표시
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(100, 48), // 버튼 크기 설정 (중복 확인과 동일)
@@ -224,7 +262,6 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // 회원가입 완료 페이지로 이동
                   Navigator.pushNamed(context, '/signup_complete');
                 },
                 style: ElevatedButton.styleFrom(
