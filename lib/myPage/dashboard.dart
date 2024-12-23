@@ -28,40 +28,40 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const TopNavigationSection(title: '마이페이지'),
+      appBar: const TopNavigationSection(title: '마이페이지'), // 이미 centerTitle 포함
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center, // 수평 가운데 정렬
           children: [
-            // 사용자 정보 영역
+            // 나의 나무 상태 정보 영역
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center, // 세로 가운데 정렬
+                crossAxisAlignment: CrossAxisAlignment.center, // 가로 가운데 정렬
                 children: [
                   const Text(
-                    '닉네임 님',
+                    '(이름)님',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center, // 텍스트 중앙 정렬
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   Container(
                     width: 150,
                     height: 150,
                     decoration: BoxDecoration(
-                      color: Colors.grey[300],
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
-                      Icons.person,
-                      size: 100,
-                      color: Colors.white,
+                    child: Image.asset(
+                      'assets/tree2.png', // 나의 나무 이미지 경로
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  OutlinedButton(
-                    onPressed: () {
-                      print("프로필 편집 클릭");
-                    },
-                    child: const Text('프로필 편집'),
+                  const SizedBox(height: 25),
+                  const Text(
+                    '현재 나무 상태',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.center,
                   ),
                 ],
               ),
@@ -104,7 +104,6 @@ class Dashboard extends StatelessWidget {
           ],
         ),
       ),
-      // 'const' 제거
       bottomNavigationBar: BottomNavigationSection(currentIndex: 3),
     );
   }
