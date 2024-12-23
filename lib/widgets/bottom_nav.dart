@@ -24,7 +24,7 @@ class _BottomNavigationSectionState extends State<BottomNavigationSection> {
         );
         break;
       case 3:
-        Navigator.pushNamed(context, '/mypage'); // 마이페이지로 이동
+        Navigator.pushNamed(context, '/dashboard'); // DashboardPage로 이동
         break;
       default:
         print('다른 화면으로 이동');

@@ -20,8 +20,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false, // 디버그 배너 숨김
       initialRoute: '/login', // 앱 시작 화면을 로그인 페이지로 설정
       routes: {
+        '/': (context) => HomePage(), // HomePage 경로
         '/login': (context) => LoginPage(), // 로그인 화면 경로
         '/home': (context) => HomePage(),   // 홈 화면 경로
+        '/dashboard': (context) => Dashboard(), // Dashboard 경로
       },
     );
   }
