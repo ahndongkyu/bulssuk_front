@@ -62,8 +62,19 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('회원가입 정보 입력'),
-        backgroundColor: Colors.black,
+        title: Text(
+          '회원가입 정보 입력',
+          style: TextStyle(
+            color: Colors.white, // 텍스트 색상 흰색
+            fontSize: 18, // 텍스트 크기
+          ),
+        ),
+        backgroundColor: Colors.black, // 배경색 검정
+        centerTitle: true, // 제목 가운데 정렬
+        elevation: 0, // 그림자 제거
+        iconTheme: IconThemeData(
+          color: Colors.white, // 뒤로가기 버튼 색상 흰색
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

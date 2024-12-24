@@ -77,12 +77,15 @@ class _FindPasswordPageState extends State<FindPasswordPage> {
         title: Text(
           '비밀번호 찾기',
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 18, // 상단 제목 텍스트 크기
+            color: Colors.white, // 텍스트 색상 흰색
+            fontSize: 18, // 텍스트 크기
           ),
         ),
-        centerTitle: true,
-        elevation: 0,
+        centerTitle: true, // 제목 가운데 정렬
+        elevation: 0, // 그림자 제거
+        iconTheme: IconThemeData(
+          color: Colors.white, // 뒤로가기 버튼 색상 흰색
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
