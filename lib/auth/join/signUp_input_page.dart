@@ -13,6 +13,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
   String? _selectedYear;
   String? _selectedMonth;
   String? _selectedDay;
+  String? _passwordErrorMessage;
 
   final List<String> years = List.generate(2024 - 1950 + 1, (index) => '${1950 + index}');
   final List<String> months = List.generate(12, (index) => '${index + 1}');
@@ -69,21 +70,40 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
             // 이름 입력
             TextField(
               controller: _nameController,
-              decoration: InputDecoration(labelText: '이름'),
+              decoration: InputDecoration(
+                labelText: '이름',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                  borderSide: BorderSide(
+                    color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                  borderSide: BorderSide(
+                    color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                    width: 2, // 테두리 두께
+                  ),
+                ),
+              ),
             ),
             SizedBox(height: 16),
 
-            // 생년월일 선택
+// 생년월일 선택
             Row(
               children: [
                 Expanded(
                   flex: 2,
                   child: DropdownButtonFormField<String>(
                     value: _selectedYear,
-                    items: years.map((year) {
+                    items: years.reversed.map((year) { // 내림차순 정렬
                       return DropdownMenuItem(
                         value: year,
                         child: Text(year),
@@ -94,9 +114,30 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                         _selectedYear = value;
                       });
                     },
-                    decoration: InputDecoration(labelText: '출생 연도'),
+                    decoration: InputDecoration(
+                      labelText: '출생 연도',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                          width: 2, // 테두리 두께
+                        ),
+                      ),
+                    ),
                     isDense: true,
                     menuMaxHeight: 200, // 드롭다운 5개씩 표시
+                    style: TextStyle(
+                      color: Colors.black, // 활성화 상태 텍스트 색상
+                    ),
                   ),
                 ),
                 SizedBox(width: 8),
@@ -115,9 +156,30 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                         _selectedMonth = value;
                       });
                     },
-                    decoration: InputDecoration(labelText: '월'),
+                    decoration: InputDecoration(
+                      labelText: '월',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                          width: 2, // 테두리 두께
+                        ),
+                      ),
+                    ),
                     isDense: true,
                     menuMaxHeight: 200, // 드롭다운 5개씩 표시
+                    style: TextStyle(
+                      color: Colors.black, // 활성화 상태 텍스트 색상
+                    ),
                   ),
                 ),
                 SizedBox(width: 8),
@@ -136,23 +198,62 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                         _selectedDay = value;
                       });
                     },
-                    decoration: InputDecoration(labelText: '일'),
+                    decoration: InputDecoration(
+                      labelText: '일',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                          width: 2, // 테두리 두께
+                        ),
+                      ),
+                    ),
                     isDense: true,
                     menuMaxHeight: 200, // 드롭다운 5개씩 표시
+                    style: TextStyle(
+                      color: Colors.black, // 활성화 상태 텍스트 색상
+                    ),
                   ),
                 ),
               ],
             ),
             SizedBox(height: 16),
 
-            // 이메일 입력
+// 이메일 입력
             Row(
               children: [
                 Expanded(
                   flex: 2,
                   child: TextField(
                     controller: _emailController,
-                    decoration: InputDecoration(labelText: '이메일 입력'),
+                    decoration: InputDecoration(
+                      labelText: '이메일 입력',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                          width: 2, // 테두리 두께
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 Text('@'),
@@ -162,7 +263,25 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                   child: _selectedEmailDomain == '직접 입력'
                       ? TextField(
                     controller: _customDomainController,
-                    decoration: InputDecoration(labelText: '도메인 입력'),
+                    decoration: InputDecoration(
+                      labelText: '도메인 입력',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                          width: 2, // 테두리 두께
+                        ),
+                      ),
+                    ),
                   )
                       : DropdownButtonFormField<String>(
                     value: _selectedEmailDomain,
@@ -180,7 +299,25 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                         }
                       });
                     },
-                    decoration: InputDecoration(labelText: '도메인 선택'),
+                    decoration: InputDecoration(
+                      labelText: '도메인 선택',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                          width: 2, // 테두리 두께
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(width: 8),
@@ -192,107 +329,124 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                         : _selectedEmailDomain;
                     final fullEmail = '$email@$domain';
 
-                    print('인증 요청: $email@$domain');
-                    // Node.js 서버에 요청 보내기
-                    final url = Uri.parse('http://localhost:8080/send_email');
                     try {
+                      final url = Uri.parse('http://localhost:8080/send_email');
                       final response = await http.post(
                         url,
                         headers: {'Content-Type': 'application/json'},
-                        body: json.encode({'email': fullEmail}),
+                        body: jsonEncode({'email': fullEmail}),
                       );
 
                       if (response.statusCode == 200) {
-                        final responseData = json.decode(response.body);
-                        print('서버 응답: ${responseData['message']}');
-                        // TODO: 서버 응답을 UI에 반영
-                        //   지피티 추가
                         setState(() {
-                          _isAuthFieldVisible = true; // 인증번호 입력 필드 표시
-                          _serverMessage = responseData['message'];
-                          _isAuthCodeSent = true; // 인증번호 전송 상태 변경
+                          _isAuthFieldVisible = true;
+                          _serverMessage = '인증번호가 발송되었습니다.';
                         });
                       } else {
-                        print('에러 발생: ${response.statusCode}');
-                        // TODO: 에러 메시지 UI에 표시
+                        setState(() {
+                          _serverMessage = '이메일 인증 실패.';
+                        });
                       }
                     } catch (error) {
-                      print('통신 실패: $error');
-                      // TODO: 통신 실패 메시지 UI에 표시
+                      setState(() {
+                        _serverMessage = '서버 오류: $error';
+                      });
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(100, 48), // 버튼 크기 설정 (중복 확인과 동일)
+                    minimumSize: Size(100, 48),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8), // radius 수정 가능
+                      borderRadius: BorderRadius.circular(10), // 둥근 테두리
                     ),
-                    backgroundColor: Color(0xFFB0F4E6),
+                    backgroundColor: Color(0xFFB0F4E6), // 버튼 배경색
                   ),
                   child: Text(
                     '인증',
-                    style: TextStyle(color: Color(0xFF12D3CF)),
+                    style: TextStyle(color: Colors.black), // 버튼 텍스트 색상
                   ),
                 ),
               ],
             ),
             SizedBox(height: 16),
 
-            // 지피티 추가
-            // 인증번호 입력 필드
+// 인증번호 입력 필드
             if (_isAuthFieldVisible) ...[
-              TextField(
-                controller: _authCodeController,
-                decoration: InputDecoration(
-                  labelText: '인증번호 입력',
-                  hintText: '6자리 인증번호를 입력하세요',
-                ),
-              ),
-              SizedBox(height: 8),
-              ElevatedButton(
-                onPressed: () async {
-                  final email = _emailController.text;
-                  final domain = _selectedEmailDomain == '직접 입력'
-                      ? _customDomainController.text
-                      : _selectedEmailDomain;
-                  final fullEmail = '$email@$domain';
+              Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: TextField(
+                      controller: _authCodeController,
+                      decoration: InputDecoration(
+                        labelText: '인증번호 입력',
+                        hintText: '6자리 인증번호를 입력하세요',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                            width: 2, // 테두리 두께
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: () async {
+                      final email = _emailController.text;
+                      final domain = _selectedEmailDomain == '직접 입력'
+                          ? _customDomainController.text
+                          : _selectedEmailDomain;
+                      final fullEmail = '$email@$domain';
 
-                  final emailRandomNumber = _authCodeController.text;
-                  final url = Uri.parse('http://localhost:8080/verify_email');
-                  try {
-                    final response = await http.post(
-                      url,
-                      headers: {'Content-Type': 'application/json'},
-                      body: json.encode({'email': fullEmail, 'code': emailRandomNumber}),
-                    );
+                      final emailRandomNumber = _authCodeController.text;
+                      final url = Uri.parse('http://localhost:8080/verify_email');
+                      try {
+                        final response = await http.post(
+                          url,
+                          headers: {'Content-Type': 'application/json'},
+                          body: jsonEncode({'email': fullEmail, 'code': emailRandomNumber}),
+                        );
 
-                    if (response.statusCode == 200) {
-                      print('인증 성공');
-                      setState(() {
-                        _isEmailVerified = true; // 이메일 인증 완료
-                        _serverMessage = '인증 성공!';
-                        _isAuthFieldVisible = false; // 인증번호 입력 필드 숨기기
-                      });
-                    } else {
-                      print('인증 실패');
-                      setState(() {
-                        _serverMessage = '인증 실패. 다시 시도하세요.';
-                      });
-                    }
-                  } catch (error) {
-                    print('통신 실패: $error');
-                    setState(() {
-                      _serverMessage = '통신 실패: $error';
-                    });
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  minimumSize: Size(100, 48),
-                ),
-                child: Text(
-                  '인증번호 확인',
-                  style: TextStyle(color: Colors.white),
-                ),
+                        if (response.statusCode == 200) {
+                          setState(() {
+                            _isEmailVerified = true;
+                            _serverMessage = '인증 성공!';
+                            _isAuthFieldVisible = false;
+                          });
+                        } else {
+                          setState(() {
+                            _serverMessage = '인증 실패. 다시 시도하세요.';
+                          });
+                        }
+                      } catch (error) {
+                        setState(() {
+                          _serverMessage = '통신 실패: $error';
+                        });
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(100, 48), // 버튼 크기
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                      ),
+                      backgroundColor: Color(0xFFB0F4E6), // 버튼 배경색
+                    ),
+                    child: Text(
+                      '확인',
+                      style: TextStyle(color: Colors.black), // 버튼 텍스트 색상
+                    ),
+                  ),
+                ],
               ),
             ],
 
@@ -311,14 +465,32 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
               children: [
                 Expanded(
                   child: TextField(
-                    controller: _idController, // (지피티) 아이디 입력 컨트롤러
-                    decoration: InputDecoration(labelText: '아이디'),
+                    controller: _idController, // 아이디 입력 컨트롤러
+                    decoration: InputDecoration(
+                      labelText: '아이디 입력',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                          width: 2, // 테두리 두께
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () async {
-                    final userId = _idController.text; // 지피티
+                    final userId = _idController.text; // 아이디 값
                     if (userId.isEmpty) {
                       setState(() {
                         _idCheckMessage = '아이디를 입력하세요.'; // 에러 메시지
@@ -361,34 +533,86 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(100, 48),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(8), // 둥근 테두리
                     ),
-                    backgroundColor: Color(0xFFB0F4E6),
+                    backgroundColor: Color(0xFFB0F4E6), // 버튼 배경색
                   ),
                   child: Text(
                     '중복 확인',
-                    style: TextStyle(color: Color(0xFF12D3CF)),
+                    style: TextStyle(color: Colors.black), // 버튼 텍스트 색상 검은색
                   ),
                 ),
               ],
             ),
             SizedBox(height: 16),
 
-            // 비밀번호 입력
-            TextField(
-              obscureText: true,
-              controller: _passwordController,
-              decoration: InputDecoration(labelText: '비밀번호'),
-            ),
-            SizedBox(height: 16),
+            // 비밀번호 입력 및 확인
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // 비밀번호 입력
+                TextField(
+                  obscureText: true,
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    labelText: '비밀번호',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                        width: 2, // 테두리 두께
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
 
-            // 비밀번호 확인 입력
-            TextField(
-              obscureText: true,
-              controller: _confirmPasswordController,
-              decoration: InputDecoration(labelText: '비밀번호 확인'),
+                // 비밀번호 확인 입력
+                TextField(
+                  obscureText: true,
+                  controller: _confirmPasswordController,
+                  decoration: InputDecoration(
+                    labelText: '비밀번호 확인',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                        width: 2, // 테두리 두께
+                      ),
+                    ),
+                    errorText: _passwordErrorMessage, // 오류 메시지
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      if (_passwordController.text != value) {
+                        _passwordErrorMessage = '비밀번호가 일치하지 않습니다.';
+                      } else {
+                        _passwordErrorMessage = null; // 오류 메시지 제거
+                      }
+                    });
+                  },
+                ),
+                SizedBox(height: 24),
+              ],
             ),
-            SizedBox(height: 24),
 
             // 회원가입 완료 버튼
             Center(
@@ -503,7 +727,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                 child: Text(
                   '회원가입 완료',
                   style: TextStyle(
-                    color: Color(0xFF12D3CF),
+                    color: Colors.black,
                     fontSize: 18,
                   ),
                 ),
