@@ -202,7 +202,7 @@ class _AgreementPageState extends State<AgreementPage> {
               child: Text(
                 '다음',
                 style: TextStyle(
-                  color: Color(0xFF12D3CF), // 버튼 텍스트 색상
+                  color: Colors.black, // 버튼 텍스트 색상
                   fontSize: 18,
                 ),
               ),

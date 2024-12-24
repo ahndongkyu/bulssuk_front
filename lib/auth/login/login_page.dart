@@ -74,10 +74,10 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text(
-          '상단 노치 영역',
+          '로그인',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 18, // 상단 제목 텍스트 크기
+            fontSize: 20, // 상단 제목 텍스트 크기
           ),
         ),
         centerTitle: true,
@@ -99,8 +99,24 @@ class _LoginPageState extends State<LoginPage> {
               controller: _emailController,
               decoration: InputDecoration(
                 labelText: '아이디 입력',
+                labelStyle: TextStyle(
+                  color: Colors.black, // labelText 색상을 검은색으로 설정
+                ),
                 border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                ),
+                enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                    width: 2, // 테두리 두께
+                  ),
                 ),
                 errorText: _isLoginFailed
                     ? '등록되지 않은 아이디 이거나, 아이디가 올바르지 않습니다.'
@@ -108,14 +124,31 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(height: 20),
-            // 비밀번호 입력 필드
+
+// 비밀번호 입력 필드
             TextField(
               controller: _passwordController,
               obscureText: true,
               decoration: InputDecoration(
                 labelText: '비밀번호 입력',
+                labelStyle: TextStyle(
+                  color: Colors.black, // labelText 색상을 검은색으로 설정
+                ),
                 border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                ),
+                enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                    width: 2, // 테두리 두께
+                  ),
                 ),
                 errorText: _isLoginFailed
                     ? '아이디 또는 비밀번호가 일치하지 않습니다.'
@@ -137,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Text(
                 '로그인',
                 style: TextStyle(
-                  color: Color(0xFF12D3CF), // 텍스트 색상
+                  color: Colors.black, // 텍스트 색상
                   fontSize: 18,
                 ),
               ),

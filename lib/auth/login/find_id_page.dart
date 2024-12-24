@@ -65,26 +65,60 @@ class _FindIdPageState extends State<FindIdPage> {
               controller: _nameController,
               decoration: InputDecoration(
                 labelText: '이름 입력',
+                labelStyle: TextStyle(
+                  color: Colors.black, // 라벨 텍스트 색상 검은색
+                ),
                 border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                ),
+                enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                    width: 2, // 테두리 두께
+                  ),
                 ),
                 errorText: _isNameEmpty ? '이름을 입력해주세요.' : null,
               ),
             ),
             SizedBox(height: 20),
-            // 이메일 입력 필드
+
+// 이메일 입력 필드
             TextField(
               controller: _emailController,
               decoration: InputDecoration(
                 labelText: '이메일 입력',
+                labelStyle: TextStyle(
+                  color: Colors.black, // 라벨 텍스트 색상 검은색
+                ),
                 border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                ),
+                enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                    width: 2, // 테두리 두께
+                  ),
                 ),
                 errorText: _isEmailEmpty ? '이메일을 입력해주세요.' : null,
               ),
             ),
             SizedBox(height: 30),
-            // 확인 버튼
+
+// 확인 버튼
             ElevatedButton(
               onPressed: _findId,
               style: ElevatedButton.styleFrom(
@@ -98,7 +132,7 @@ class _FindIdPageState extends State<FindIdPage> {
               child: Text(
                 '확인',
                 style: TextStyle(
-                  color: Color(0xFF12D3CF), // 텍스트 색상
+                  color: Colors.black, // 버튼 텍스트 색상 검은색
                   fontSize: 18,
                 ),
               ),

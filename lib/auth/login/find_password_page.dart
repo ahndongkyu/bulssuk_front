@@ -95,14 +95,31 @@ class _FindPasswordPageState extends State<FindPasswordPage> {
               controller: _idController,
               decoration: InputDecoration(
                 labelText: '아이디 입력',
+                labelStyle: TextStyle(
+                  color: Colors.black, // 라벨 텍스트 색상 검은색
+                ),
                 border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                ),
+                enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                    width: 2, // 테두리 두께
+                  ),
                 ),
                 errorText: _isIdEmpty ? '아이디를 입력해주세요.' : null,
               ),
             ),
             SizedBox(height: 20),
-            // 이메일 입력 필드 + 인증 버튼
+
+// 이메일 입력 필드 + 인증 버튼
             Row(
               children: [
                 Expanded(
@@ -110,8 +127,24 @@ class _FindPasswordPageState extends State<FindPasswordPage> {
                     controller: _emailController,
                     decoration: InputDecoration(
                       labelText: '이메일 입력',
+                      labelStyle: TextStyle(
+                        color: Colors.black, // 라벨 텍스트 색상 검은색
+                      ),
                       border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                      ),
+                      enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                          width: 2, // 테두리 두께
+                        ),
                       ),
                       errorText: _isEmailEmpty ? '이메일을 입력해주세요.' : null,
                     ),
@@ -130,7 +163,7 @@ class _FindPasswordPageState extends State<FindPasswordPage> {
                   child: Text(
                     '인증',
                     style: TextStyle(
-                      color: Color(0xFF12D3CF), // 텍스트 색상
+                      color: Colors.black, // 버튼 텍스트 색상
                       fontSize: 14,
                     ),
                   ),
@@ -138,7 +171,8 @@ class _FindPasswordPageState extends State<FindPasswordPage> {
               ],
             ),
             SizedBox(height: 20),
-            // 인증번호 입력 필드 + 확인 버튼
+
+// 인증번호 입력 필드 + 확인 버튼
             Row(
               children: [
                 Expanded(
@@ -146,8 +180,24 @@ class _FindPasswordPageState extends State<FindPasswordPage> {
                     controller: _codeController,
                     decoration: InputDecoration(
                       labelText: '인증번호 입력',
+                      labelStyle: TextStyle(
+                        color: Colors.black, // 라벨 텍스트 색상 검은색
+                      ),
                       border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                      ),
+                      enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFFCCCCCC), // 비활성화 상태 테두리 색상
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Color(0xFF67EACA), // 활성화 상태 테두리 색상
+                          width: 2, // 테두리 두께
+                        ),
                       ),
                       errorText: _isCodeEmpty ? '인증번호를 입력해주세요.' : null,
                     ),
@@ -166,7 +216,7 @@ class _FindPasswordPageState extends State<FindPasswordPage> {
                   child: Text(
                     '확인',
                     style: TextStyle(
-                      color: Color(0xFF12D3CF), // 텍스트 색상
+                      color: Colors.black, // 버튼 텍스트 색상
                       fontSize: 14,
                     ),
                   ),
@@ -188,7 +238,7 @@ class _FindPasswordPageState extends State<FindPasswordPage> {
               child: Text(
                 '비밀번호 찾기',
                 style: TextStyle(
-                  color: Color(0xFF12D3CF), // 텍스트 색상
+                  color: Colors.black, // 텍스트 색상
                   fontSize: 18,
                 ),
               ),

@@ -76,6 +76,9 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
               controller: _nameController,
               decoration: InputDecoration(
                 labelText: '이름',
+                labelStyle: TextStyle(
+                  color: Colors.black, // 라벨 텍스트 색상 검은색
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10), // 둥근 테두리
                 ),
@@ -94,9 +97,9 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
 
-// 생년월일 선택
+            // 생년월일 선택
             Row(
               children: [
                 Expanded(
@@ -116,6 +119,9 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                     },
                     decoration: InputDecoration(
                       labelText: '출생 연도',
+                      labelStyle: TextStyle(
+                        color: Colors.black, // 라벨 텍스트 색상 검은색
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10), // 둥근 테두리
                       ),
@@ -140,7 +146,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                     ),
                   ),
                 ),
-                SizedBox(width: 8),
+                SizedBox(width: 10),
                 Expanded(
                   flex: 1,
                   child: DropdownButtonFormField<String>(
@@ -158,6 +164,9 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                     },
                     decoration: InputDecoration(
                       labelText: '월',
+                      labelStyle: TextStyle(
+                        color: Colors.black, // 라벨 텍스트 색상 검은색
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10), // 둥근 테두리
                       ),
@@ -182,7 +191,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                     ),
                   ),
                 ),
-                SizedBox(width: 8),
+                SizedBox(width: 10),
                 Expanded(
                   flex: 1,
                   child: DropdownButtonFormField<String>(
@@ -200,6 +209,9 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                     },
                     decoration: InputDecoration(
                       labelText: '일',
+                      labelStyle: TextStyle(
+                        color: Colors.black, // 라벨 텍스트 색상 검은색
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10), // 둥근 테두리
                       ),
@@ -226,9 +238,9 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
 
-// 이메일 입력
+            // 이메일 입력
             Row(
               children: [
                 Expanded(
@@ -237,6 +249,9 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                     controller: _emailController,
                     decoration: InputDecoration(
                       labelText: '이메일 입력',
+                      labelStyle: TextStyle(
+                        color: Colors.black, // 라벨 텍스트 색상 검은색
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10), // 둥근 테두리
                       ),
@@ -257,7 +272,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                   ),
                 ),
                 Text('@'),
-                SizedBox(width: 8),
+                SizedBox(width: 5),
                 Expanded(
                   flex: 2,
                   child: _selectedEmailDomain == '직접 입력'
@@ -265,6 +280,9 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                     controller: _customDomainController,
                     decoration: InputDecoration(
                       labelText: '도메인 입력',
+                      labelStyle: TextStyle(
+                        color: Colors.black, // 라벨 텍스트 색상 검은색
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10), // 둥근 테두리
                       ),
@@ -301,6 +319,9 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                     },
                     decoration: InputDecoration(
                       labelText: '도메인 선택',
+                      labelStyle: TextStyle(
+                        color: Colors.black, // 라벨 텍스트 색상 검은색
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10), // 둥근 테두리
                       ),
@@ -320,7 +341,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                     ),
                   ),
                 ),
-                SizedBox(width: 8),
+                SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () async {
                     final email = _emailController.text;
@@ -367,9 +388,9 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
 
-// 인증번호 입력 필드
+            // 인증번호 입력 필드
             if (_isAuthFieldVisible) ...[
               Row(
                 children: [
@@ -379,6 +400,9 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                       controller: _authCodeController,
                       decoration: InputDecoration(
                         labelText: '인증번호 입력',
+                        labelStyle: TextStyle(
+                          color: Colors.black, // 라벨 텍스트 색상 검은색
+                        ),
                         hintText: '6자리 인증번호를 입력하세요',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10), // 둥근 테두리
@@ -399,7 +423,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 8),
+                  SizedBox(width: 10),
                   ElevatedButton(
                     onPressed: () async {
                       final email = _emailController.text;
@@ -452,7 +476,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
 
             // 서버 응답 메시지 표시
             if (_serverMessage != null) ...[
-              SizedBox(height: 16),
+              SizedBox(height: 20),
               Text(
                 _serverMessage!,
                 style: TextStyle(color: Colors.red),
@@ -468,6 +492,9 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                     controller: _idController, // 아이디 입력 컨트롤러
                     decoration: InputDecoration(
                       labelText: '아이디 입력',
+                      labelStyle: TextStyle(
+                        color: Colors.black, // 라벨 텍스트 색상 검은색
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10), // 둥근 테두리
                       ),
@@ -487,7 +514,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                     ),
                   ),
                 ),
-                SizedBox(width: 8),
+                SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () async {
                     final userId = _idController.text; // 아이디 값
@@ -544,7 +571,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 20),
 
             // 비밀번호 입력 및 확인
             Column(
@@ -556,6 +583,9 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                   controller: _passwordController,
                   decoration: InputDecoration(
                     labelText: '비밀번호',
+                    labelStyle: TextStyle(
+                      color: Colors.black, // 라벨 텍스트 색상 검은색
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10), // 둥근 테두리
                     ),
@@ -574,7 +604,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 20),
 
                 // 비밀번호 확인 입력
                 TextField(
@@ -582,6 +612,9 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                   controller: _confirmPasswordController,
                   decoration: InputDecoration(
                     labelText: '비밀번호 확인',
+                    labelStyle: TextStyle(
+                      color: Colors.black, // 라벨 텍스트 색상 검은색
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10), // 둥근 테두리
                     ),
@@ -610,7 +643,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                     });
                   },
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: 30),
               ],
             ),
 
@@ -718,11 +751,13 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 48),
+                  backgroundColor: Color(0xFFB0F4E6), // 버튼 색상
+                  padding: EdgeInsets.symmetric(vertical: 16.0), // 사용자 선호 패딩
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(10), // 둥근 테두리
+                    side: BorderSide(color: Color(0xFF67EACA), width: 1), // 테두리 색상 및 두께
                   ),
-                  backgroundColor: Color(0xFFB0F4E6),
+                  minimumSize: Size(double.infinity, 48), // 버튼 크기 설정
                 ),
                 child: Text(
                   '회원가입 완료',
