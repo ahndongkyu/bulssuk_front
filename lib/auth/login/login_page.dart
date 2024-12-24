@@ -99,6 +99,9 @@ class _LoginPageState extends State<LoginPage> {
               controller: _emailController,
               decoration: InputDecoration(
                 labelText: '아이디 입력',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 errorText: _isLoginFailed
                     ? '등록되지 않은 아이디 이거나, 아이디가 올바르지 않습니다.'
                     : null, // 오류 메시지
@@ -111,6 +114,9 @@ class _LoginPageState extends State<LoginPage> {
               obscureText: true,
               decoration: InputDecoration(
                 labelText: '비밀번호 입력',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 errorText: _isLoginFailed
                     ? '아이디 또는 비밀번호가 일치하지 않습니다.'
                     : null, // 오류 메시지
