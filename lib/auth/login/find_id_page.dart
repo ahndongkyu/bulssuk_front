@@ -1,4 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:my_page/auth/login/find_id_complete_page.dart';
 
 class FindIdPage extends StatefulWidget {
   @override
@@ -10,21 +13,90 @@ class _FindIdPageState extends State<FindIdPage> {
   final _emailController = TextEditingController();
   bool _isNameEmpty = false;
   bool _isEmailEmpty = false;
+  bool _isLoading = false;
 
-  void _findId() {
+  Future<void> _findId() async {
     setState(() {
       _isNameEmpty = _nameController.text.isEmpty;
       _isEmailEmpty = _emailController.text.isEmpty;
     });
 
-    if (!_isNameEmpty && !_isEmailEmpty) {
-      // 아이디 정보를 보여주는 창 띄우기
+    if (_isNameEmpty || _isEmailEmpty) {
+      return; // 입력값이 없으면 요청을 보내지 않음
+    }
+
+    try {
+      setState(() {
+        _isLoading = true; // 로딩 상태 활성화
+      });
+
+      final response = await http.post(
+        Uri.parse('http://localhost:8080/find-id'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'name': _nameController.text,
+          'email': _emailController.text,
+        }),
+      );
+
+      setState(() {
+        _isLoading = false; // 로딩 상태 비활성화
+      });
+
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        String userId = responseData['userId'];
+
+        // 아이디의 가운데 2글자 가리기
+        String hiddenUserId = userId;
+        if (userId.length > 2) {
+          int midIndex = userId.length ~/ 2; // 가운데 인덱스 계산
+          hiddenUserId = userId.replaceRange(midIndex - 1, midIndex + 1, '**');
+        }
+
+        // FindIdCompletePage로 이동
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FindIdCompletePage(userId: hiddenUserId),
+          ),
+        );
+      } else {
+        // 서버에서 에러 응답을 보낸 경우
+        final errorResponse = jsonDecode(response.body);
+        String errorMessage = errorResponse['message'];
+
+        // 오류 메시지 표시
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('오류'),
+              content: Text(errorMessage),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context); // 다이얼로그 닫기
+                  },
+                  child: Text('확인'),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } catch (e) {
+      setState(() {
+        _isLoading = false; // 로딩 상태 비활성화
+      });
+
+      // 네트워크 오류 등 처리
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('아이디 정보'),
-            content: Text('찾은 아이디: example_user_id'),
+            title: Text('오류'),
+            content: Text('네트워크 오류가 발생했습니다. 다시 시도해주세요.'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -120,7 +192,7 @@ class _FindIdPageState extends State<FindIdPage> {
 
             // 확인 버튼
             ElevatedButton(
-              onPressed: _findId,
+              onPressed: _isLoading ? null : _findId,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFFB0F4E6), // 버튼 색상
                 padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -129,7 +201,9 @@ class _FindIdPageState extends State<FindIdPage> {
                   side: BorderSide(color: Color(0xFF67EACA), width: 1), // 테두리 색상 및 두께
                 ),
               ),
-              child: Text(
+              child: _isLoading
+                  ? CircularProgressIndicator(color: Colors.black)
+                  : Text(
                 '확인',
                 style: TextStyle(
                   color: Colors.black, // 버튼 텍스트 색상 검은색
