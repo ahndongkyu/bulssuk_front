@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ResetPasswordPage extends StatefulWidget {
+  final String userId;
+
+  ResetPasswordPage({required this.userId});
+
   @override
   _ResetPasswordPageState createState() => _ResetPasswordPageState();
 }
@@ -8,37 +14,60 @@ class ResetPasswordPage extends StatefulWidget {
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final _newPasswordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+
   bool _isPasswordEmpty = false;
   bool _isConfirmPasswordEmpty = false;
   bool _isPasswordMismatch = false;
+  bool _isLoading = false;
 
-  void _resetPassword() {
+  // 비밀번호 재설정 요청
+  void _resetPassword() async {
     setState(() {
       _isPasswordEmpty = _newPasswordController.text.isEmpty;
       _isConfirmPasswordEmpty = _confirmPasswordController.text.isEmpty;
-      _isPasswordMismatch = _newPasswordController.text != _confirmPasswordController.text;
+      _isPasswordMismatch =
+          _newPasswordController.text != _confirmPasswordController.text;
     });
 
-    if (!_isPasswordEmpty && !_isConfirmPasswordEmpty && !_isPasswordMismatch) {
-      // 비밀번호 재설정 로직 추가
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('비밀번호 재설정 완료'),
-            content: Text('비밀번호가 성공적으로 재설정되었습니다.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context); // 다이얼로그 닫기
-                  Navigator.pop(context); // 이전 페이지로 이동
-                },
-                child: Text('확인'),
-              ),
-            ],
-          );
-        },
+    if (_isPasswordEmpty || _isConfirmPasswordEmpty || _isPasswordMismatch) {
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    final newPassword = _newPasswordController.text;
+
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost:8080/reset-password'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'user_id': widget.userId,
+          'new_password': newPassword,
+        }),
       );
+
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("비밀번호가 성공적으로 변경되었습니다.")),
+        );
+        Navigator.popUntil(context, (route) => route.isFirst); // 로그인 화면으로 이동
+      } else {
+        final responseBody = json.decode(response.body);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(responseBody['message'] ?? "비밀번호 변경 실패")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("서버와의 통신 중 오류가 발생했습니다.")),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -51,11 +80,14 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           '비밀번호 재설정',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 18, // 상단 제목 텍스트 크기
+            fontSize: 18,
           ),
         ),
         centerTitle: true,
         elevation: 0,
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -63,65 +95,89 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(height: 40),
+
             // 새 비밀번호 입력 필드
             TextField(
               controller: _newPasswordController,
-              obscureText: true,
               decoration: InputDecoration(
                 labelText: '새 비밀번호 입력',
+                labelStyle: TextStyle(color: Colors.black),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                errorText: _isPasswordEmpty ? '새 비밀번호를 입력해주세요.' : null,
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                      color: _isPasswordEmpty ? Colors.red : Color(0xFFCCCCCC)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: _isPasswordEmpty ? Colors.red : Color(0xFF67EACA),
+                    width: 2,
+                  ),
+                ),
+                errorText: _isPasswordEmpty ? '비밀번호를 입력해주세요.' : null,
               ),
+              obscureText: true,
             ),
             SizedBox(height: 20),
-            // 새 비밀번호 확인 필드
+
+            // 비밀번호 확인 입력 필드
             TextField(
               controller: _confirmPasswordController,
-              obscureText: true,
               decoration: InputDecoration(
-                labelText: '새 비밀번호 확인',
+                labelText: '비밀번호 확인',
+                labelStyle: TextStyle(color: Colors.black),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                      color: _isConfirmPasswordEmpty || _isPasswordMismatch
+                          ? Colors.red
+                          : Color(0xFFCCCCCC)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    color: _isConfirmPasswordEmpty || _isPasswordMismatch
+                        ? Colors.red
+                        : Color(0xFF67EACA),
+                    width: 2,
+                  ),
+                ),
                 errorText: _isConfirmPasswordEmpty
-                    ? '비밀번호를 다시 입력해주세요.'
+                    ? '비밀번호 확인을 입력해주세요.'
                     : _isPasswordMismatch
                     ? '비밀번호가 일치하지 않습니다.'
                     : null,
               ),
+              obscureText: true,
             ),
             SizedBox(height: 30),
-            // 확인 버튼
+
+            // 비밀번호 재설정 버튼
             ElevatedButton(
-              onPressed: _resetPassword,
+              onPressed: _isLoading ? null : _resetPassword,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFB0F4E6), // 버튼 색상
+                backgroundColor: Color(0xFFB0F4E6),
                 padding: EdgeInsets.symmetric(vertical: 16.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(color: Color(0xFF67EACA), width: 1), // 테두리 색상 및 두께
                 ),
               ),
-              child: Text(
-                '확인',
+              child: _isLoading
+                  ? CircularProgressIndicator(
+                color: Colors.black,
+                strokeWidth: 2.0,
+              )
+                  : Text(
+                '비밀번호 재설정',
                 style: TextStyle(
-                  color: Color(0xFF12D3CF), // 텍스트 색상
+                  color: Colors.black,
                   fontSize: 18,
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
-            // 하단으로 돌아가기 버튼
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pop(context); // 이전 페이지로 돌아가기
-                },
-                child: Text(
-                  '이전 페이지로 돌아가기',
-                  style: TextStyle(color: Colors.black),
                 ),
               ),
             ),
