@@ -89,7 +89,7 @@ class _FindIdPageState extends State<FindIdPage> {
             ),
             SizedBox(height: 20),
 
-// 이메일 입력 필드
+            // 이메일 입력 필드
             TextField(
               controller: _emailController,
               decoration: InputDecoration(
@@ -118,7 +118,7 @@ class _FindIdPageState extends State<FindIdPage> {
             ),
             SizedBox(height: 30),
 
-// 확인 버튼
+            // 확인 버튼
             ElevatedButton(
               onPressed: _findId,
               style: ElevatedButton.styleFrom(

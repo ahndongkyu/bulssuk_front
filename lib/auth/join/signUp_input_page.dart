@@ -71,7 +71,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            // 이름 입력
+            // 이름 텍스트박스
             TextField(
               controller: _nameController,
               decoration: InputDecoration(

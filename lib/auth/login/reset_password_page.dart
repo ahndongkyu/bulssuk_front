@@ -20,7 +20,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     });
 
     if (!_isPasswordEmpty && !_isConfirmPasswordEmpty && !_isPasswordMismatch) {
-      // 비밀번호 재설정 로직 추가 가능
+      // 비밀번호 재설정 로직 추가
       showDialog(
         context: context,
         builder: (BuildContext context) {

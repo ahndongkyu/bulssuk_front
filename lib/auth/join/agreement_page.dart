@@ -92,7 +92,7 @@ class _AgreementPageState extends State<AgreementPage> {
               ),
             ),
             Divider(),
-            // 이용약관 동의 (필수)
+            // 이용약관 동의(필수)
             ListTile(
               leading: IconButton(
                 icon: Icon(

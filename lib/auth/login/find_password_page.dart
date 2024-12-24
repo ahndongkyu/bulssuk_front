@@ -119,7 +119,7 @@ class _FindPasswordPageState extends State<FindPasswordPage> {
             ),
             SizedBox(height: 20),
 
-// 이메일 입력 필드 + 인증 버튼
+            // 이메일 입력 필드 + 인증 버튼
             Row(
               children: [
                 Expanded(
@@ -172,7 +172,7 @@ class _FindPasswordPageState extends State<FindPasswordPage> {
             ),
             SizedBox(height: 20),
 
-// 인증번호 입력 필드 + 확인 버튼
+            // 인증번호 입력 필드 + 확인 버튼
             Row(
               children: [
                 Expanded(
