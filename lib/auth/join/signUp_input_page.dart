@@ -22,7 +22,6 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
   String? _selectedEmailDomain;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _customDomainController = TextEditingController();
-  // 지피티 추가
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
@@ -32,7 +31,7 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
   String? _idCheckMessage;
 
   final List<String> emailDomains = ['직접 입력', 'naver.com', 'daum.net'];
-  // gpt 추가
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -766,7 +765,6 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
                   padding: EdgeInsets.symmetric(vertical: 16.0), // 사용자 선호 패딩
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10), // 둥근 테두리
-                    side: BorderSide(color: Color(0xFF67EACA), width: 1), // 테두리 색상 및 두께
                   ),
                   minimumSize: Size(double.infinity, 48), // 버튼 크기 설정
                 ),

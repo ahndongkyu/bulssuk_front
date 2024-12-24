@@ -202,7 +202,6 @@ class _AgreementPageState extends State<AgreementPage> {
                 padding: EdgeInsets.symmetric(vertical: 16.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(color: Color(0xFF67EACA), width: 2), // 테두리 색상
                 ),
               ),
               child: Text(
