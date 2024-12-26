@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../widgets/top_nav.dart'; // 공통 AppBar 위젯 import
+
 
 class ReupcyclingPage extends StatelessWidget {
   const ReupcyclingPage({super.key});
@@ -6,11 +8,8 @@ class ReupcyclingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text('상단 노치 영역', style: TextStyle(color: Colors.white)),
-        centerTitle: true,
+      appBar: TopNavigationSection(
+        title: '업사이클링 기업', // 동적으로 제목 설정
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -75,18 +74,7 @@ class ReupcyclingPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: 0,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: '홈'),
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: '달력'),
-          BottomNavigationBarItem(icon: Icon(Icons.nature), label: '내 나무'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: '마이페이지'),
-        ],
-      ),
+
     );
   }
 

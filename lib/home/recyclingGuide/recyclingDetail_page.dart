@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../widgets/top_nav.dart'; // 공통 AppBar 위젯 import
+import '../../../widgets/top_nav.dart'; // 공통 AppBar 위젯 import
+
 
 class RecyclingDetailPage extends StatelessWidget {
   final String category;

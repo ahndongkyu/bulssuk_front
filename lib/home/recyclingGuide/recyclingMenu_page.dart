@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'recyclingDetail_page.dart';
+import '../../../widgets/top_nav.dart'; // 공통 AppBar 위젯 import
+
 
 class RecyclingMenuPage extends StatefulWidget {
   final String title; // 제목을 전달받을 변수
@@ -23,14 +25,8 @@ class _RecyclingMenuState extends State<RecyclingMenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          '분리수거 가이드 - ${widget.title}', // 전달받은 제목을 사용
-          style: TextStyle(
-            color: Colors.white, // 텍스트 색상 흰색으로 설정
-          ),
-        ),
-        backgroundColor: Colors.black,
+      appBar: TopNavigationSection(
+        title: '분리수거 가이드 - ${widget.title}', // 동적으로 제목 설정
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -101,19 +97,6 @@ class _RecyclingMenuState extends State<RecyclingMenuPage> {
             ),
           ],
         ),
-      ),
-      // 하단 메뉴
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed, // 모든 아이템 간 동일한 간격 유지
-        currentIndex: 0, // 현재 화면은 홈
-        selectedItemColor: Colors.black, // 선택된 아이콘과 텍스트 색상
-        unselectedItemColor: Colors.grey, // 선택되지 않은 아이콘과 텍스트 색상
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: '홈'),
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: '달력'),
-          BottomNavigationBarItem(icon: Icon(Icons.nature), label: '내 나무'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: '마이페이지'),
-        ],
       ),
     );
   }
