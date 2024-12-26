@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_page/calendar/calendar_page.dart';
 import '../home/home.dart';
+import '../calendar/calendar_page.dart';
 import '../myTree/tree_page.dart';
 import '../myPage/dashboard.dart';
 
@@ -27,7 +29,10 @@ class _BottomNavigationSectionState extends State<BottomNavigationSection> {
         );
         break;
       case 1:
-        print('달력 페이지로 이동');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => CalendarPage()),
+        );
         break;
       case 2:
         Navigator.pushReplacement(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'home/home.dart';
 import 'auth/login/login_page.dart';
 import 'myPage/dashboard.dart';
+import 'calendar/calendar_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(), // 로그인 화면 경로
         '/home': (context) => HomePage(),   // 홈 화면 경로
         '/dashboard': (context) => Dashboard(), // Dashboard 경로
+        '/calendar': (context) => CalendarPage(), // 캘린더 페이지 경로
       },
     );
   }
