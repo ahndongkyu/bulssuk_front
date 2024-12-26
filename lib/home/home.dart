@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'recyclingGuide/reupcycling_page.dart';
 import 'recyclingGuide/recyclingMenu_page.dart';
 import '../../widgets/top_nav.dart'; // 공통 AppBar 위젯 import
-import '../widgets/bottom_nav.dart'; // 하단 네비게이션 가져오기
+import '../../widgets/bottom_nav.dart'; // 하단 네비게이션 가져오기
+import '../../home/environmentNews/wordCloud.dart'; // 올바른 경로로 수정
 
 
 class HomePage extends StatelessWidget {
@@ -85,11 +86,29 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 20),
 
             // 2. news 영역
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                '오늘의 환경 뉴스',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            GestureDetector(
+              onTap: () {
+                // 클릭됨 메시지 출력
+                print('오늘의 환경 뉴스 클릭됨');
+
+                // WordCloud 페이지로 이동
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Wordcloud(), // Wordcloud 페이지 호출
+                  ),
+                );
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  '오늘의 환경 뉴스',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black, // 텍스트 색상
+                  ),
+                ),
               ),
             ),
             ListTile(
@@ -97,7 +116,7 @@ class HomePage extends StatelessWidget {
               title: const Text('“불황엔 쓰레기도 숲”... 노인들 폐지 쟁탈전'),
               onTap: () {},
             ),
-            const Divider(),
+            const Divider(), // 구분선
 
             // 3. AI 영역
             Padding(
