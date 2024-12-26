@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../../widgets/top_nav.dart'; // 공통 AppBar 위젯 import
+
 
 
 
@@ -60,20 +62,8 @@ class _SignUpInputPageState extends State<SignUpInputPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black, // AppBar 배경색
-        title: Text(
-          '상단 노치 영역', // 제목 텍스트
-          style: TextStyle(
-            color: Colors.white, // 텍스트 색상 흰색
-            fontSize: 18, // 텍스트 크기
-          ),
-        ),
-        centerTitle: true, // 제목을 가운데 정렬
-        elevation: 0, // 그림자 제거
-        iconTheme: IconThemeData(
-          color: Colors.white, // 뒤로가기 버튼 색상 흰색
-        ),
+      appBar: const TopNavigationSection(
+        title: '회원정보 입력',
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

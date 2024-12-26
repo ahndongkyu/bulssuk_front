@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'find_id_page.dart'; // 아이디 찾기 페이지 import
 import 'find_password_page.dart'; // 비밀번호 찾기 페이지 import
 import '../join/agreement_page.dart'; // 회원가입 페이지 import
+import '../../widgets/top_nav.dart'; // 공통 AppBar 위젯 import
 
 class LoginPage extends StatefulWidget {
   @override
@@ -71,20 +72,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text(
-          '로그인',
-          style: TextStyle(
-            color: Colors.white, // 텍스트 색상 흰색
-            fontSize: 20, // 텍스트 크기
-          ),
-        ),
-        centerTitle: true, // 제목 가운데 정렬
-        elevation: 0, // 그림자 제거
-        iconTheme: IconThemeData(
-          color: Colors.white, // 뒤로가기 버튼 색상 흰색
-        ),
+      appBar: const TopNavigationSection(
+        title: '로그인',
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),

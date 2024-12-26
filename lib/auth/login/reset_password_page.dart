@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../../widgets/top_nav.dart'; // 공통 AppBar 위젯 import
 
 class ResetPasswordPage extends StatefulWidget {
   final String userId;
@@ -74,20 +75,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text(
-          '비밀번호 재설정',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 0,
-        iconTheme: IconThemeData(
-          color: Colors.white,
-        ),
+      appBar: const TopNavigationSection(
+        title: '비밀번호 재설정',
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),

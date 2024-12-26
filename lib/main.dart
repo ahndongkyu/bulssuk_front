@@ -13,10 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Seperate Recycling',
-      theme: ThemeData(
-        primarySwatch: Colors.green, // 기본 테마 색상 (필요시 통합 조정)
-      ),
+      title: 'Recycling',
       debugShowCheckedModeBanner: false, // 디버그 배너 숨김
       initialRoute: '/login', // 앱 시작 화면을 로그인 페이지로 설정
       routes: {

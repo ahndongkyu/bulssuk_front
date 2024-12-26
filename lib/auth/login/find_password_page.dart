@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:my_page/auth/login/reset_password_page.dart';
+import '../../widgets/top_nav.dart'; // 공통 AppBar 위젯 import
 
 class FindPasswordPage extends StatefulWidget {
   @override
@@ -153,20 +154,8 @@ class _FindPasswordPageState extends State<FindPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text(
-          '비밀번호 찾기',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 0,
-        iconTheme: IconThemeData(
-          color: Colors.white,
-        ),
+      appBar: const TopNavigationSection(
+        title: '비밀번호 찾기',
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
