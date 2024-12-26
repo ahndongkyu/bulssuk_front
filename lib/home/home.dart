@@ -1,13 +1,81 @@
+import 'dart:async'; // Timer를 위해 추가
 import 'package:flutter/material.dart';
 import 'recyclingGuide/reupcycling_page.dart';
 import 'recyclingGuide/recyclingMenu_page.dart';
 import '../../widgets/top_nav.dart'; // 공통 AppBar 위젯 import
 import '../../widgets/bottom_nav.dart'; // 하단 네비게이션 가져오기
-import '../../home/environmentNews/wordCloud.dart'; // 올바른 경로로 수정
+import '../../home/environmentNews/wordCloud.dart'; // WordCloud 페이지 import
+import 'package:http/http.dart' as http; // HTTP 요청을 위해 추가
+import 'dart:convert'; // JSON 디코딩
+import 'package:url_launcher/url_launcher.dart'; // URL 열기를 위해 추가
 
-
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<dynamic> articles = []; // 뉴스 리스트
+  bool isLoading = true; // 로딩 상태
+  PageController _pageController = PageController(); // PageView 컨트롤러
+  Timer? _timer; // 자동 스크롤 타이머
+
+  // 뉴스 데이터를 가져오는 함수
+  Future<void> fetchArticles() async {
+    final String url = 'http://192.168.0.116:5001/api/news'; // Flask 서버 URL
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        setState(() {
+          articles = json.decode(response.body).take(10).toList(); // 최대 10개의 뉴스 데이터 가져오기
+          isLoading = false;
+        });
+        _startAutoScroll(); // 뉴스 데이터를 가져온 후 자동 스크롤 시작
+      } else {
+        print("Failed to fetch articles: ${response.statusCode}");
+      }
+    } catch (e) {
+      print("Error fetching articles: $e");
+    }
+  }
+
+  // 자동 스크롤 타이머 시작
+  void _startAutoScroll() {
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_pageController.hasClients) {
+        final nextPage = (_pageController.page!.toInt() + 1) % articles.length;
+        _pageController.animateToPage(
+          nextPage,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
+
+  // URL 열기 함수
+  void _openUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Could not launch $url');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchArticles(); // 초기화 시 뉴스 데이터 가져오기
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose(); // PageView 컨트롤러 해제
+    _timer?.cancel(); // 타이머 해제
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,17 +153,14 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
-            // 2. news 영역
+            // 2. 뉴스 영역
             GestureDetector(
               onTap: () {
-                // 클릭됨 메시지 출력
-                print('오늘의 환경 뉴스 클릭됨');
-
-                // WordCloud 페이지로 이동
+                // "오늘의 환경 뉴스" 클릭 시 WordCloud 페이지로 이동
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Wordcloud(), // Wordcloud 페이지 호출
+                    builder: (context) => Wordcloud(),
                   ),
                 );
               },
@@ -106,17 +171,60 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black, // 텍스트 색상
+                    color: Colors.black,
                   ),
                 ),
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.looks_one),
-              title: const Text('“불황엔 쓰레기도 숲”... 노인들 폐지 쟁탈전'),
-              onTap: () {},
+// 뉴스 리스트 (하나씩 표시하며 자동 스크롤, 세로 스크롤)
+            SizedBox(
+              height: 50, // 높이 조정
+              child: isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : PageView.builder(
+                controller: _pageController,
+                scrollDirection: Axis.vertical, // 스크롤 방향 세로로 설정
+                itemCount: articles.length,
+                onPageChanged: (index) {
+                  if (index == articles.length - 1) {
+                    // 마지막 뉴스에서 4초 후 첫 번째 뉴스로 이동
+                    Future.delayed(const Duration(seconds: 4), () {
+                      _pageController.jumpToPage(0); // 모션 없이 첫 번째로 이동
+                    });
+                  }
+                },
+                itemBuilder: (context, index) {
+                  final article = articles[index];
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 5.0), // 뉴스 번호를 쪽으로 띄움
+                    child: ListTile(
+                      leading: Text(
+                        '${index + 1}', // 뉴스 번호
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF12D3CF),
+                        ),
+                      ),
+                      title: Padding(
+                        padding: const EdgeInsets.only(), // 번호와 제목 간 간격 조정
+                        child: Text(
+                          article['title'], // 뉴스 제목
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                      ),
+                      onTap: () => _openUrl(article['link']), // 뉴스 클릭 시 URL 열기
+                    ),
+                  );
+                },
+              ),
             ),
-            const Divider(), // 구분선
+            const Divider(),
 
             // 3. AI 영역
             Padding(
