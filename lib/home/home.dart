@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'reupcycling_page.dart';
-import 'recyclingMenu_page.dart';
+import 'recyclingGuide/reupcycling_page.dart';
+import 'recyclingGuide/recyclingMenu_page.dart';
 import '../../widgets/top_nav.dart'; // 공통 AppBar 위젯 import
 import '../widgets/bottom_nav.dart'; // 하단 네비게이션 가져오기
 
